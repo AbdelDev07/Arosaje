@@ -3,12 +3,14 @@ import sqlite3
 import hashlib
 import datetime
 import jwt
+#import requests
+
 
 
 def generer_jwt(payload):
     cle_secrete = '689kjLK^%E4mM#'
     # Ajoute la date d'expiration à la charge utile
-    payload['exp'] = datetmie.datetime.now() + datetime.timedelta(hours=3)
+    payload['exp'] = datetime.datetime.now() + datetime.timedelta(hours=3)
     
     # Génère le jeton JWT
     jeton = jwt.encode(payload, cle_secrete, algorithm='HS256')
@@ -59,10 +61,11 @@ class DataBase:
             payload = {'user_id': self.connect,'username': self.dico["email"]}
             self.tokenGen = generer_jwt(payload)
             self.cursor.execute("INSERT INTO Connection (Token,userId, satrting_date, endig_date)", (self.tokenGen,self.connect,time["debut"],time["fin"]))
+            self.conn.commit()
             return self.tokenGen
             
         else:
-            return "Identifiant ou mot de passe érroné"
+            return 400
         
 
     def register_to_db(self, dico):
@@ -90,7 +93,9 @@ class DataBase:
         if self.timeToken and self.timeToken[0] < datetime.datetime.now():
             return True
         else:
-            return False
+            return False 
+    
+
     
     def Charge_message(self, token):
         if self.verification_token(token):
@@ -155,6 +160,38 @@ def inscription():
         if valueDB == 200:
             response = {
                 "status": str(valueDB),
+                "message": "Inscrit",
+            }
+            return jsonify(response), 400
+        else:
+            response = {
+                "status": str(valueDB),
+                "message": "inscription failed",
+            }
+            return jsonify(response), 400
+
+        
+    else:
+        return jsonify({"error": "Contenu de la requête n'est pas en format JSON"}), 400
+    
+@app.route('/login', methods=['POST'])
+def login():
+    # Vérifie si le contenu de la requête est en format JSON
+    if request.is_json:
+        # Récupère le JSON à partir du corps de la requête
+        json_data = request.json
+        
+        # Traitement du JSON
+        dico_login = {
+        'email': json_data.get('email'),
+        'password': json_data.get('password')
+        }
+
+        loginDB = DataBase()
+        valueDB =loginDB.connexion_db(dico_login)
+        if valueDB != 400:
+            response = {
+                "token": str(valueDB),
                 "message": "Inscrit",
             }
             return jsonify(response), 400
