@@ -72,11 +72,15 @@ class DataBase:
         self.cursor.execute("SELECT email, phone FROM UserData WHERE email=? OR phone=?", (self.dico["email"], self.dico["phone"]))
         self.exist = self.cursor.fetchone()
         if self.exist:
-            return "l'utilisateur existe déjà"
+            return self.exist
         else :
             self.cursor = self.conn.cursor()
-            self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, role_id,city_id, age) VALUES (?,?,?, ?, ?, ?, ?, ?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"], self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
-            return 200
+            #self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, role_id,cityId, age) VALUES (?,?,?, ?, ?, ?, ?, ?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"], self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
+
+            self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, status,cityId, age, username) VALUES (?,?,?,?,?,?, ?,?,?,?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"],self.dico["role_id"],self.dico["city_id"],str(self.dico["age"]),'ygyzsigh'))
+            self.conn.commit()
+            self.insert = self.cursor.fetchone()
+            return self.insert
     
     def verification_token(self, token):
         self.conn = connect_db()
@@ -146,21 +150,20 @@ def inscription():
         'age':json_data.get('age')
         }
 
-        return jsonify(dico_inscription), 400
-        # inscriptionDB = DataBase()
-        # valueDB =inscriptionDB.register_to_db
-        # if valueDB == 200:
-        #     response = {
-        #         "status": "success",
-        #         "message": "Inscrit",
-        #     }
-        #     return jsonify(response), 200
-        # else:
-        #     response = {
-        #         "status": str(valueDB),
-        #         "message": "inscription failed",
-        #     }
-        #     return jsonify(response), 400
+        inscriptionDB = DataBase()
+        valueDB =inscriptionDB.register_to_db(dico_inscription)
+        if valueDB == 200:
+            response = {
+                "status": str(valueDB),
+                "message": "Inscrit",
+            }
+            return jsonify(response), 400
+        else:
+            response = {
+                "status": str(valueDB),
+                "message": "inscription failed",
+            }
+            return jsonify(response), 400
 
         
     else:
