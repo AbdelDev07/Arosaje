@@ -135,31 +135,32 @@ def inscription():
         
         # Traitement du JSON
         dico_inscription = {
-        'firstname': json_data.get('firstname'),
-        'lastname': json_data.get('lastname'),
+        'firstname': json_data.get('firstName'),
+        'lastname': json_data.get('lastName'),
         'email': json_data.get('email'),
         'password': json_data.get('password'),
         'phone': json_data.get('phone'),
-        'userAddress': json_data.get('adresse'),
-        'role_id': json_data.get('role_id'),
-        'city_id': json_data.get('city_id'),
+        'userAddress': json_data.get('userAddress'),
+        'role_id': json_data.get('roleId'),
+        'city_id': json_data.get('cityId'),
         'age':json_data.get('age')
         }
 
-        inscriptionDB = DataBase()
-        valueDB =inscriptionDB.register_to_db
-        if valueDB == 200:
-            response = {
-                "status": "success",
-                "message": "Inscrit",
-            }
-            return jsonify(response), 200
-        else:
-            response = {
-                "status": str(valueDB),
-                "message": "inscription failed",
-            }
-            return jsonify(response), 400
+        return jsonify(dico_inscription), 400
+        # inscriptionDB = DataBase()
+        # valueDB =inscriptionDB.register_to_db
+        # if valueDB == 200:
+        #     response = {
+        #         "status": "success",
+        #         "message": "Inscrit",
+        #     }
+        #     return jsonify(response), 200
+        # else:
+        #     response = {
+        #         "status": str(valueDB),
+        #         "message": "inscription failed",
+        #     }
+        #     return jsonify(response), 400
 
         
     else:
