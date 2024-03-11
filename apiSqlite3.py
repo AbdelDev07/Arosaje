@@ -56,8 +56,9 @@ class DataBase:
         app.logger.info(f'email: {self.dico["email"]} , password: {self.dico["password"]}')
         self.cursor.execute("SELECT UserId FROM UserData WHERE email=? and password=?", (self.dico["email"], md5_hash(self.dico["password"])))
         self.connect = self.cursor.fetchone() 
+        app.logger.info(self.connect)
         if self.connect:
-            app.logger.info(self.connect)
+            app.logger.info('Bon credential')
             self.cursor = self.conn.cursor()
             time = time_token()
             payload = {'user_id': self.connect,'username': self.dico["email"]}
