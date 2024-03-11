@@ -54,7 +54,7 @@ class DataBase:
         self.dico = dico
         self.cursor = self.conn.cursor()
         app.logger.info(f'email: {self.dico["email"]} , password: {self.dico["password"]}')
-        self.cursor.execute("SELECT UserId FROM UserData WHERE email=? OR password=?", (self.dico["email"], md5_hash(self.dico["password"])))
+        self.cursor.execute("SELECT UserId FROM UserData WHERE email=? and password=?", (self.dico["email"], md5_hash(self.dico["password"])))
         self.connect = self.cursor.fetchone() 
         if self.connect:
             app.logger.info(self.connect)
