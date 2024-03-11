@@ -53,14 +53,16 @@ class DataBase:
         self.conn = connect_db()
         self.dico = dico
         self.cursor = self.conn.cursor()
+        app.logger.info(f'email: {self.dico["email"]} , password: {self.dico["password"]}')
         self.cursor.execute("SELECT UserId FROM UserData WHERE email=? OR password=?", (self.dico["email"], md5_hash(self.dico["password"])))
         self.connect = self.cursor.fetchone() 
         if self.connect:
+            app.logger.info(self.connect)
             self.cursor = self.conn.cursor()
             time = time_token()
             payload = {'user_id': self.connect,'username': self.dico["email"]}
             self.tokenGen = generer_jwt(payload)
-            self.cursor.execute("INSERT INTO Connection (Token,userId, satrting_date, endig_date)", (self.tokenGen,self.connect,time["debut"],time["fin"]))
+            self.cursor.execute("INSERT INTO Connection (Token,userId, Starting_time, Ending_time) VALUES (?,?,?,?)", (str(self.tokenGen),str(self.connect),time["debut"],time["fin"]))
             self.conn.commit()
             return self.tokenGen
             
@@ -80,7 +82,7 @@ class DataBase:
             self.cursor = self.conn.cursor()
             #self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, role_id,cityId, age) VALUES (?,?,?, ?, ?, ?, ?, ?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"], self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
 
-            self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, status,cityId, age, username) VALUES (?,?,?,?,?,?, ?,?,?,?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"],self.dico["role_id"],self.dico["city_id"],str(self.dico["age"]),'ygyzsigh'))
+            self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, status,cityId, age) VALUES (?,?,?,?,?, ?,?,?,?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"],self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
             self.conn.commit()
             self.insert = self.cursor.fetchone()
             return self.insert
@@ -166,9 +168,9 @@ def inscription():
         else:
             response = {
                 "status": str(valueDB),
-                "message": "inscription failed",
+                "message": "inscription OK",
             }
-            return jsonify(response), 400
+            return jsonify(response), 200
 
         
     else:
