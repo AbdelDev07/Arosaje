@@ -233,7 +233,7 @@ def recupererlocalisation():
 def profile():
     if request.is_json:
         token = request.args.get('token')
-        app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{token}\n\n\n---------------------------- ')
+        app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{request.get_json()}\n\n\n---------------------------- ')
         get_profile= DataBase()
         profile_data = get_profile.profile(token)
         return jsonify(profile_data), 200
