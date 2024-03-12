@@ -229,7 +229,7 @@ def recupererlocalisation():
     # Retourner les coordonnées GPS sous forme de liste
     return jsonify(adresses), 200
 
-@app.route('/profile', methods=['GET'])
+@app.route('/profile', methods=['POST'])
 def profile():
     if request.is_json:
         token = request.args.get('token')
