@@ -224,15 +224,7 @@ def login():
 @app.route('/recupererlocalisation', methods=['GET'])
 def recupererlocalisation():
     # Supposons que les coordonnées GPS sont déjà définies
-    adresses = [
-    "1600 Amphitheatre Parkway, Mountain View, CA 94043, États-Unis",  # Googleplex
-    "One Apple Park Way, Cupertino, CA 95014, États-Unis",  # Apple Park
-    "1600 Pennsylvania Ave NW, Washington, DC 20500, États-Unis",  # Maison Blanche
-    "Buckingham Palace, Westminster, London SW1A 1AA, Royaume-Uni",  # Buckingham Palace
-    "Champs-Élysées, 75008 Paris, France",  # Avenue des Champs-Élysées
-    "Kremlin, Moscou, Russie"
-    ]
-    
+    adresses = [(37.4217636, -122.084614), (38.897699700000004, -77.03655315), (51.5008349, -0.1430045264505431), (48.8707573, 2.3053312), (55.7516212, 37.618122044334896)]
     # Retourner les coordonnées GPS sous forme de liste
     return jsonify(adresses), 200
 
