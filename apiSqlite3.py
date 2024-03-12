@@ -90,6 +90,7 @@ class DataBase:
         self.cursor = self.conn.cursor()
         self.cursor.execute("SELECT Ending_time, UserId FROM Connection WHERE Token=?", (token))
         self.timeToken = self.cursor.fetchone()
+        app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{self.timeToken[1]}, \t {self.timeToken[0]}\n\n\n---------------------------- ')
         if self.timeToken and self.timeToken[0] < datetime.datetime.now():
             return self.timeToken[1]
         else:
