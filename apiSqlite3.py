@@ -236,9 +236,14 @@ def profile():
         app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{token}\n\n\n---------------------------- ')
         get_profile= DataBase()
         profile_data = get_profile.profile(token)
+        return jsonify(profile_data), 200
     
-    # Retourner les coordonnées GPS sous forme de liste
-    return jsonify(profile_data), 200
+    else:
+        response = {
+            "status": str(valueDB),
+            "message": "inscription failed",
+        }
+        return jsonify(response), 400
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
 
