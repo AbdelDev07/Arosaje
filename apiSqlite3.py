@@ -88,18 +88,31 @@ class DataBase:
     def verification_token(self, token):
         self.conn = connect_db()
         self.cursor = self.conn.cursor()
-        self.cursor.execute("SELECT endig_date FROM UserData WHERE Token=?", (token))
+        self.cursor.execute("SELECT endig_date, User_id FROM UserData WHERE Token=?", (token))
         self.timeToken = self.cursor.fetchone()
         if self.timeToken and self.timeToken[0] < datetime.datetime.now():
-            return True
+            return self.timeToken[1]
         else:
             return False 
     
 
     
-    def Charge_message(self, token):
-        if self.verification_token(token):
-            pass
+    def profile(self, token):
+        self.is_connect = self.verification_token(token)
+        if self.is_connect:
+            self.conn = connect_db()
+            self.cursor = self.conn.cursor()
+            self.cursor.execute("SELECT email, firstname,lastname,userAddress,cityId,age FROM UserData WHERE User_id =?", (self.is_connect))
+            self.rows = self.cursor.fetchall()
+            self.resultat = {
+                "email": self.rows[0],
+                "firstname": self.rows[1],
+                "lastname": self.rows[2],
+                "userAddress": self.rows[3],
+                "cityId": self.rows[4],
+                "age": self.rows[5]
+                }
+            return self.resultat
         else:
             self.to_connexionPage()
 
@@ -222,6 +235,15 @@ def recupererlocalisation():
     
     # Retourner les coordonnées GPS sous forme de liste
     return jsonify(adresses), 200
+
+@app.route('/profile', methods=['GET'])
+def profile():
+    token = request.args.get('token')
+    get_profile= DataBase()
+    profile_data = get_profile.profile(token)
+    
+    # Retourner les coordonnées GPS sous forme de liste
+    return jsonify(profile_data), 200
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
 
