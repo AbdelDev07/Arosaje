@@ -239,6 +239,7 @@ def recupererlocalisation():
 @app.route('/profile', methods=['GET'])
 def profile():
     token = request.args.get('token')
+    app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{token}\n\n\n---------------------------- ')
     get_profile= DataBase()
     profile_data = get_profile.profile(token)
     
