@@ -40,6 +40,7 @@ dependencies:
   http: ^1.1.0
   flutter_secure_storage: ^9.0.0
   google_maps_flutter: ^2.5.3
+  mockito: ^5.4.4
 
 dev_dependencies:
   flutter_test:
