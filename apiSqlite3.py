@@ -206,6 +206,22 @@ def login():
     else:
         return jsonify({"error": "Contenu de la requête n'est pas en format JSON"}), 400
 
+
+
+@app.route('/recupererlocalisation', methods=['GET'])
+def recupererlocalisation():
+    # Supposons que les coordonnées GPS sont déjà définies
+    adresses = [
+    "1600 Amphitheatre Parkway, Mountain View, CA 94043, États-Unis",  # Googleplex
+    "One Apple Park Way, Cupertino, CA 95014, États-Unis",  # Apple Park
+    "1600 Pennsylvania Ave NW, Washington, DC 20500, États-Unis",  # Maison Blanche
+    "Buckingham Palace, Westminster, London SW1A 1AA, Royaume-Uni",  # Buckingham Palace
+    "Champs-Élysées, 75008 Paris, France",  # Avenue des Champs-Élysées
+    "Kremlin, Moscou, Russie"
+    ]
+    
+    # Retourner les coordonnées GPS sous forme de liste
+    return jsonify(adresses), 200
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
 
