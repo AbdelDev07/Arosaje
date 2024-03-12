@@ -88,7 +88,7 @@ class DataBase:
     def verification_token(self, token):
         self.conn = connect_db()
         self.cursor = self.conn.cursor()
-        self.cursor.execute("SELECT Ending_time, User_id FROM Connection WHERE Token=?", (token))
+        self.cursor.execute("SELECT Ending_time, UserId FROM Connection WHERE Token=?", (token))
         self.timeToken = self.cursor.fetchone()
         if self.timeToken and self.timeToken[0] < datetime.datetime.now():
             return self.timeToken[1]
