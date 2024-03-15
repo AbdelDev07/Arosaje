@@ -114,6 +114,8 @@ class DataBase:
             self.cursor = self.conn.cursor()
             self.cursor.execute("SELECT email, firstname,lastname,userAddress,cityId,age FROM UserData WHERE UserId =?", (self.is_connect))
             self.rows = self.cursor.fetchall()
+            app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{self.rows[0]}\n\n\n---------------------------- ')
+
             self.resultat = {
                 "email": self.rows[0],
                 "firstname": self.rows[1],
