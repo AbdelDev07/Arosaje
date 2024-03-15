@@ -49,7 +49,7 @@ class DataBase:
     def __init__(self):
         self.conn = connect_db()
     
-    def to_connexionPage():
+    def to_connexionPage(self):
         """
         RENVOYER PAGE DE CONNEXION
         """
@@ -100,7 +100,7 @@ class DataBase:
         self.user_id=self.timeToken[1][1]
         app.logger.info(f'---------------------------------------------------\n\n\nvoici le user :{self.user_id}, \t {self.timeToken[0]}\n\n\n---------------------------- ')
         self.time_tokenStr = datetime.datetime.strptime(self.timeToken[0], "%Y-%m-%d %H:%M:%S.%f")
-        if self.timeToken and self.time_tokenStr < datetime.datetime.now():
+        if self.timeToken and self.time_tokenStr > datetime.datetime.now():
             return self.user_id
         else:
             return False 
