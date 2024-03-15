@@ -129,23 +129,15 @@ class DataBase:
         else:
             self.to_connexionPage()
 
-    def Ajout_plante(self, token):
+    def Ajout_plante(self, token, dico):
         self.is_connect = self.verification_token(token)
         if self.is_connect:
             self.conn = connect_db()
             self.cursor = self.conn.cursor()
-            self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, status,cityId, age) VALUES (?,?,?,?,?, ?,?,?,?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"],self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
+            self.cursor.execute("INSERT INTO Plant (plantDescription,plantAdress, name, timecount, UserId, UNIT) VALUES (?,?,?,?,?, ?,?)",(self.dico["plantDescription"],self.dico["plantAdress"], self.dico["name"], md5_hash(self.dico["duree_garde"]),self.is_connect))
             self.conn.commit()
             self.insert = self.cursor.fetchone()
-
-            self.resultat = {
-                "email": self.rows[0],
-                "nom": self.rows[1],
-                "lastname": self.rows[2],
-                "adresse": self.rows[3],
-                "ville": self.rows[4]
-                }
-            return self.resultat
+            return True
         else:
             self.to_connexionPage()
 

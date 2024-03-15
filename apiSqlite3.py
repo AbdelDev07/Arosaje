@@ -4,6 +4,7 @@ import hashlib
 import datetime
 import jwt
 import bdd
+import geoVerif
 
 
 app = Flask(__name__)
@@ -119,6 +120,33 @@ def profile():
         get_profile= bdd.DataBase()
         profile_data = get_profile.profile(token)
         return jsonify(profile_data), 200
+    
+    else:
+        response = {
+            "status": 'No_token send',
+            "message": "inscription failed",
+        }
+        return jsonify(response), 400
+    
+@app.route('/addplant', methods=['POST'])
+def addPlant():
+    if request.is_json:
+        data = request.json
+        token = data.get('token')
+        json_data = request.json
+        
+        # Traitement du JSON
+        dico_ajout = {
+        'plantDescription': json_data.get('plantDescription'),
+        'plantAdress': json_data.get('plantAdress'),
+        'name': json_data.get('name'),
+        'duree_garde': json_data.get('duree_garde')
+        }
+
+        add_plant= bdd.DataBase()
+        plant_added = add_plant.Ajout_plante(token, dico_ajout)
+
+        return jsonify("test"), 200
     
     else:
         response = {
