@@ -112,17 +112,16 @@ class DataBase:
         if self.is_connect:
             self.conn = connect_db()
             self.cursor = self.conn.cursor()
-            self.cursor.execute("SELECT email, firstname,lastname,userAddress,cityId,age FROM UserData WHERE UserId =?", (self.is_connect))
+            self.cursor.execute("SELECT email, firstname,lastname,userAddress,cityId FROM UserData WHERE UserId =?", (self.is_connect))
             self.rows = self.cursor.fetchall()
             self.rows= self.rows[0]
 
             self.resultat = {
                 "email": self.rows[0],
-                "firstname": self.rows[1],
+                "nom": self.rows[1],
                 "lastname": self.rows[2],
-                "userAddress": self.rows[3],
-                "cityId": self.rows[4],
-                "age": self.rows[5]
+                "adresse": self.rows[3],
+                "ville": self.rows[4]
                 }
             return self.resultat
         else:
