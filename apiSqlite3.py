@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for, a
 import sqlite3
 import hashlib
 import datetime
+from datetime import datetime
+
 import jwt
 #from dotenv import load_dotenv
 #import os
@@ -97,7 +99,7 @@ class DataBase:
         self.cursor = self.conn.cursor()
         self.cursor.execute("SELECT Ending_time, UserId FROM Connection WHERE Token=?", (token,))
         self.timeToken = self.cursor.fetchone()
-        self.user_id=self.timeToken[1][0]
+        self.user_id=self.timeToken[1][1]
         app.logger.info(f'---------------------------------------------------\n\n\nvoici le user :{self.user_id}, \t {self.timeToken[0]}\n\n\n---------------------------- ')
         self.time_tokenStr = datetime.strptime(self.timeToken[0], "%Y-%m-%d %H:%M:%S.%f")
         if self.timeToken and self.time_tokenStr < datetime.datetime.now():
