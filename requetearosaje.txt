@@ -1,0 +1,76 @@
+CREATE TABLE City(
+   cityId INTEGER PRIMARY KEY,
+   cityName VARCHAR(80) NOT NULL
+);
+
+CREATE TABLE Connection(
+   UserId INTEGER NOT NULL ,
+   Token VARCHAR(255) PRIMARY KEY,
+   Starting_time DATETIME NOT NULL,
+   Ending_time DATETIME NOT NULL
+);
+
+CREATE TABLE UserData(
+   UserId INTEGER PRIMARY KEY,
+   lastName VARCHAR(80) NOT NULL,
+   age INTEGER,
+   email VARCHAR(255) NOT NULL,
+   phone VARCHAR(255) NOT NULL,
+   status VARCHAR(255) NOT NULL,
+   userAddress VARCHAR(255) NOT NULL,
+   password VARCHAR(255) NOT NULL,
+   firstName VARCHAR(80) NOT NULL,
+   cityId INTEGER NOT NULL,
+   FOREIGN KEY(cityId) REFERENCES City(cityId)
+);
+
+
+
+CREATE TABLE Plant(
+   plantID INTEGER PRIMARY KEY,
+   plantDescription VARCHAR(255) NOT NULL,
+   plantAdress VARCHAR(255) NOT NULL,
+   name VARCHAR(80) NOT NULL,
+   datetime.DATE
+   UserId INTEGER NOT NULL,
+   PRIMARY KEY(plantID),
+   FOREIGN KEY(UserId) REFERENCES Guardian(UserId)
+);
+
+CREATE TABLE messageHistory(
+   messageId INTEGER PRIMARY KEY,
+   messageDate VARCHAR(255) NOT NULL,
+   content VARCHAR(255) NOT NULL,
+   UserId INTEGER NOT NULL,
+   PRIMARY KEY(messageId),
+   FOREIGN KEY(UserId) REFERENCES Guardian(UserId)
+);
+
+CREATE TABLE PlantImages(
+   ImageId INTEGER PRIMARY KEY,
+   Image VARCHAR(255) NOT NULL,
+   ImageDate DATETIME NOT NULL,
+   UserId INT NOT NULL,
+   plantID INT NOT NULL,
+   PRIMARY KEY(ImageId),
+   FOREIGN KEY(UserId) REFERENCES Guardian(UserId),
+   FOREIGN KEY(plantID) REFERENCES Plant(plantID)
+);
+
+CREATE TABLE Tip(
+   tipId INTEGER PRIMARY KEY,
+   tipDescription VARCHAR(255) NOT NULL,
+   UserId INT NOT NULL,
+   PRIMARY KEY(tipId),
+   FOREIGN KEY(UserId) REFERENCES Botanist(UserId)
+);
+
+CREATE TABLE Concern(
+   plantID INT,
+   tipId INT,
+   PRIMARY KEY(plantID, tipId),
+   FOREIGN KEY(plantID) REFERENCES Plant(plantID),
+   FOREIGN KEY(tipId) REFERENCES Tip(tipId)
+);
+
+SS
