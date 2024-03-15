@@ -31,9 +31,8 @@ CREATE TABLE Plant(
    plantDescription VARCHAR(255) NOT NULL,
    plantAdress VARCHAR(255) NOT NULL,
    name VARCHAR(80) NOT NULL,
-   datetime.DATE
-   UserId INTEGER NOT NULL,
-   PRIMARY KEY(plantID),
+   date DATETIME NOT NULL,
+   UserId NOT NULL,
    FOREIGN KEY(UserId) REFERENCES Guardian(UserId)
 );
 
@@ -42,7 +41,6 @@ CREATE TABLE messageHistory(
    messageDate VARCHAR(255) NOT NULL,
    content VARCHAR(255) NOT NULL,
    UserId INTEGER NOT NULL,
-   PRIMARY KEY(messageId),
    FOREIGN KEY(UserId) REFERENCES Guardian(UserId)
 );
 
@@ -52,7 +50,6 @@ CREATE TABLE PlantImages(
    ImageDate DATETIME NOT NULL,
    UserId INT NOT NULL,
    plantID INT NOT NULL,
-   PRIMARY KEY(ImageId),
    FOREIGN KEY(UserId) REFERENCES Guardian(UserId),
    FOREIGN KEY(plantID) REFERENCES Plant(plantID)
 );
@@ -61,16 +58,13 @@ CREATE TABLE Tip(
    tipId INTEGER PRIMARY KEY,
    tipDescription VARCHAR(255) NOT NULL,
    UserId INT NOT NULL,
-   PRIMARY KEY(tipId),
    FOREIGN KEY(UserId) REFERENCES Botanist(UserId)
 );
 
 CREATE TABLE Concern(
-   plantID INT,
-   tipId INT,
-   PRIMARY KEY(plantID, tipId),
+   plantID INT NOT NULL,
+   tipId INT PRIMARY KEY,
    FOREIGN KEY(plantID) REFERENCES Plant(plantID),
    FOREIGN KEY(tipId) REFERENCES Tip(tipId)
 );
 
-SS
