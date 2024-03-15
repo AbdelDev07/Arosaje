@@ -3,11 +3,18 @@ import sqlite3
 import hashlib
 import datetime
 import jwt
+#from dotenv import load_dotenv
+#import os
+
+#load_dotenv()
+
+#cle_secrete=os.getenv("HASHPASS")
 #import requests
 
 
 
 def generer_jwt(payload):
+    #à enlever
     cle_secrete = '689kjLK^%E4mM#'
     # Ajoute la date d'expiration à la charge utile
     payload['exp'] = datetime.datetime.now() + datetime.timedelta(hours=3)
@@ -233,7 +240,7 @@ def recupererlocalisation():
 def profile():
     if request.is_json:
         token = request.args.get('token')
-        app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{request.get_json()}\n\n\n---------------------------- ')
+        app.logger.info(f'---------------------------------------------------\n\n\nvoici le token :{type(token)}\n\n\n---------------------------- ')
         get_profile= DataBase()
         profile_data = get_profile.profile(token)
         return jsonify(profile_data), 200
