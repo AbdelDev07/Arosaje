@@ -9,28 +9,6 @@ import geoVerif
 
 app = Flask(__name__)
     
-    # def informations_plante(self, id_plante):
-    #     # Exécuter la requête pour récupérer les informations de la plante par son ID
-    #     self.cursor.execute("SELECT nom, emplacement, description, frequence_arrosage, exposition_lumiere, engrais, problemes_courants, conseils_speciaux FROM Plant WHERE id=?", (id_plante,))
-    #     plante_data = self.cursor.fetchone()
-
-    #     # Vérifier si des données ont été trouvées pour l'ID de la plante donné
-    #     if plante_data:
-    #         # Créer un dictionnaire avec les informations de la plante
-    #         plante_info = {
-    #             "nom": plante_data[0],
-    #             "emplacement": plante_data[1],
-    #             "description": plante_data[2],
-    #             "frequence_arrosage": plante_data[3],
-    #             "exposition_lumiere": plante_data[4],
-    #             "engrais": plante_data[5],
-    #             "problemes_courants": plante_data[6],
-    #             "conseils_speciaux": plante_data[7]
-    #         }
-    #         return plante_info
-    #     else:
-    #         # Retourner None si aucune donnée n'est trouvée pour l'ID de la plante donné
-    #         return None
 
 @app.route('/inscription', methods=['POST'])
 def inscription():
