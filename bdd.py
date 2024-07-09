@@ -140,6 +140,18 @@ class DataBase:
             return True
         else:
             self.to_connexionPage()
+    
+    def send_message(self, token, dico):
+        self.is_connect = self.verification_token(token)
+        if self.is_connect:
+            self.conn = connect_db()
+            self.cursor = self.conn.cursor()
+            self.cursor.execute("INSERT INTO messageHistory (messageDate,content, UserId , UserId_1 ) VALUES (?,?,?,?)",(str(datetime.datetime.now()),self.dico["message_text"], self.dico["sender_id"],self.dico["receiver_id"]))
+            self.conn.commit()
+            self.insert = self.cursor.fetchone()
+            return True
+        else:
+            self.to_connexionPage()
 
     def coordonnee_gps(self, adresse):
         pass

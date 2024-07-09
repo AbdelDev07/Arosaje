@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for, abort
+from flask_cors import CORS  # Import CORS from flask_cors
+
 import sqlite3
 import hashlib
 import datetime
@@ -8,7 +10,7 @@ import geoVerif
 
 
 app = Flask(__name__)
-    
+CORS(app)
 
 @app.route('/inscription', methods=['POST'])
 def inscription():
