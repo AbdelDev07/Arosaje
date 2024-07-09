@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for, abort
 from flask_cors import CORS  # Import CORS from flask_cors
 
+
 import sqlite3
 import hashlib
 import datetime
@@ -31,7 +32,7 @@ def inscription():
         'city_id': json_data.get('cityId'),
         'age':json_data.get('age')
         }
-
+        print(f"Received inscription data: {dico_inscription}")
         inscriptionDB = bdd.DataBase()
         valueDB =inscriptionDB.register_to_db(dico_inscription)
         if valueDB == 200:
@@ -53,6 +54,7 @@ def inscription():
     
 @app.route('/login', methods=['POST'])
 def login():
+    print("AAAAAAAAAAAAAAAAAAAAAAAK")
     # Vérifie si le contenu de la requête est en format JSON
     if request.is_json:
         # Récupère le JSON à partir du corps de la requête
