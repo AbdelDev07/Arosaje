@@ -45,7 +45,7 @@ def inscription():
                 "status": str(valueDB),
                 "message": "inscription OK",
             }
-            return jsonify(response), 200
+            return jsonify(response), 400
 
         
     else:
