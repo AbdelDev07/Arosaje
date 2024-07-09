@@ -91,10 +91,9 @@ class DataBase:
             #self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, role_id,cityId, age) VALUES (?,?,?, ?, ?, ?, ?, ?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"], self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
 
             self.cursor.execute("INSERT INTO UserData (firstname,lastname, email, password, phone, userAddress, status,cityId, age) VALUES (?,?,?,?,?, ?,?,?,?)",(self.dico["firstname"],self.dico["lastname"], self.dico["email"], md5_hash(self.dico["password"]),self.dico["phone"], self.dico["userAddress"],self.dico["role_id"],self.dico["city_id"],str(self.dico["age"])))
-            print("envoyer")
             self.conn.commit()
             self.insert = self.cursor.fetchone()
-            return self.insert
+            return "je NE COMPREND PAS"
     
     def verification_token(self, token):
         self.conn = connect_db()
