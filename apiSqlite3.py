@@ -93,7 +93,7 @@ def recupererlocalisation():
     # Retourner les coordonnées GPS sous forme de liste
     return jsonify(adresses), 200
 
-@app.route('/profile', methods=['POST'])
+@app.route('/profile', methods=['GET'])
 def profile():
     if request.is_json:
         data = request.json

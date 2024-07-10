@@ -9,11 +9,11 @@ class TestFlaskAPI(unittest.TestCase):
     def test_inscription_endpoint(self):
         url = self.base_url + "/inscription"
         data = {
-            'firstName': 'Jalal',
-            'lastName': 'test',
-            'email': 'jalal@gmail.com',
+            'firstName': 'Jalalo',
+            'lastName': 'testo',
+            'email': 'jalal5o@gmail.com',
             'password': 'password123',
-            'phone': '0638048265',
+            'phone': '0638048565',
             'userAddress': '123 Main St',
             'roleId': 1,
             'cityId': 1,
@@ -23,6 +23,7 @@ class TestFlaskAPI(unittest.TestCase):
         headers = {'Content-Type': 'application/json'}
         response = requests.post(url, json=data, headers=headers)
         response_data = response.json()
+        print(response_data)
 
         self.assertIn('status', response_data)
         self.assertEqual(response_data.get('message'), 'inscription OK')
@@ -30,7 +31,7 @@ class TestFlaskAPI(unittest.TestCase):
     def test_login_endpoint(self):
         url = self.base_url + "/login"
         data = {
-            'email': 'jalal@gmail.com',
+            'email': 'jalal5o@gmail.com',
             'password': 'password123'
         }
 
