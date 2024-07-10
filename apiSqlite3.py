@@ -54,7 +54,6 @@ def inscription():
     
 @app.route('/login', methods=['POST'])
 def login():
-    print("AAAAAAAAAAAAAAAAAAAAAAAK")
     # Vérifie si le contenu de la requête est en format JSON
     if request.is_json:
         # Récupère le JSON à partir du corps de la requête
@@ -150,7 +149,7 @@ def addPlant():
     
     else:
         response = {
-            "status": 'null elies',
+            "status": 'pas bon',
             "message": "inscription failed",
         }
         return jsonify(response), 400

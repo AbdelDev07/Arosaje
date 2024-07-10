@@ -2,15 +2,15 @@ import sqlite3
 import mysql.connector
 
 # Connexion à la base SQLite
-sqlite_conn = sqlite3.connect('old_database.db')
+sqlite_conn = sqlite3.connect('/root/db/botaDB.db')
 sqlite_cursor = sqlite_conn.cursor()
 
 # Connexion à la base MySQL
 mysql_conn = mysql.connector.connect(
     host='localhost',
-    user='username',
-    password='password',
-    database='new_database'
+    user='Arosaje',
+    password='Arosaje',
+    database='AjosajeDB'
 )
 mysql_cursor = mysql_conn.cursor()
 

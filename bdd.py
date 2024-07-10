@@ -134,7 +134,7 @@ class DataBase:
         if self.is_connect:
             self.conn = connect_db()
             self.cursor = self.conn.cursor()
-            self.cursor.execute("INSERT INTO Plant (plantDescription,plantAdress, name, timecount, UserId, UNIT) VALUES (?,?,?,?,?, ?,?)",(self.dico["plantDescription"],self.dico["plantAdress"], self.dico["name"], md5_hash(self.dico["duree_garde"]),self.is_connect))
+            self.cursor.execute("INSERT INTO Plant (plantDescription,plantAdress, name, timecount, UserId) VALUES (?,?,?,?,?,?)",(self.dico["plantDescription"],self.dico["plantAdress"], self.dico["name"], md5_hash(self.dico["duree_garde"]),self.is_connect))
             self.conn.commit()
             self.insert = self.cursor.fetchone()
             return True
