@@ -130,6 +130,7 @@ class DataBase:
             self.to_connexionPage()
 
     def Ajout_plante(self, token, dico):
+        self.dico = dico
         self.is_connect = self.verification_token(token)
         if self.is_connect:
             self.conn = connect_db()
@@ -142,6 +143,7 @@ class DataBase:
             self.to_connexionPage()
     
     def send_message(self, token, dico):
+        self.dico = dico
         self.is_connect = self.verification_token(token)
         if self.is_connect:
             self.conn = connect_db()
