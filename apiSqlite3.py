@@ -113,12 +113,18 @@ def profile():
 def send_message():
     if request.is_json:
         data = request.json
+        token = data.get('token')
         sender_id = data.get('sender_id')
         receiver_id = data.get('receiver_id')
         message_text = data.get('message_text')
         
+        dico_mess={
+            'message_text': message_text,
+            'sender_id': sender_id,
+            'receiver_id': receiver_id
+        }
         db = bdd.DataBase()
-        db.send_message(sender_id, receiver_id, message_text)
+        db.send_message(token, dico_mess)
         
         return jsonify({"message": "Message sent successfully"}), 200
     else:
