@@ -139,7 +139,8 @@ def addPlant():
         'plantDescription': json_data.get('plantDescription'),
         'plantAdress': json_data.get('plantAdress'),
         'name': json_data.get('name'),
-        'duree_garde': json_data.get('duree_garde')
+        'duree_garde': json_data.get('duree_garde'),
+        'species': "species"
         }
 
         add_plant= bdd.DataBase()
