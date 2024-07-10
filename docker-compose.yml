@@ -12,8 +12,6 @@ services:
       - ./db:/root/db
     depends_on:
       - sqlite3
-    environment:
-      HASH_PASS: ${HASHPASS}
 
   sqlite3:
     image: nouchka/sqlite3:latest
